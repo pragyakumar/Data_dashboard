@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Visualization Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            padding-top: 30px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .side-panel {
+            border-right: 1px solid #e0e0e0;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .filter-container, .apply-btn-container {
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            margin-bottom: 30px;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .chart {
+            width: 100%;
+            height: 400px; /* Adjust height for better visibility on smaller screens */
+        }
+        .applied-filters {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1, h5 {
+            color: #333;
+            font-weight: 700;
+        }
+        .custom-select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0, 123, 255, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            padding: 5px 0;
+            font-weight: 500;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mb-5 {
+            margin-bottom: 3rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-5">Data Visualization Dashboard</h1>
+        <div class="row">
+            <div class="col-md-3 col-12 side-panel">
+                <!-- Side Panel Content -->
+                <div class="section">
+                    <h5><i class="fas fa-filter"></i> Filters</h5>
+                    <div class="filter-container">
+                        <select id="yearFilter" class="form-control custom-select">
+                            <option value="">Select End Year</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <select id="topicsFilter" class="form-control custom-select">
+                            <option value="">Select Topics</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <select id="sectorFilter" class="form-control custom-select">
+                            <option value="">Select Sector</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <select id="regionFilter" class="form-control custom-select">
+                            <option value="">Select Region</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <select id="pestFilter" class="form-control custom-select">
+                            <option value="">Select PEST</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <select id="sourceFilter" class="form-control custom-select">
+                            <option value="">Select Source</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <select id="swotFilter" class="form-control custom-select">
+                            <option value="">Select SWOT</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <select id="countryFilter" class="form-control custom-select">
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <select id="cityFilter" class="form-control custom-select">
+                            <option value="">Select City</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <select id="impactFilter" class="form-control custom-select">
+                            <option value="">Select Impact</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="apply-btn-container">
+                        <button id="applyFilters" class="btn btn-primary btn-block">Apply Filters</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section chart-container">
+                            <h5 class="text-center">Intensity Chart</h5>
+                            <canvas id="intensityChart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section chart-container">
+                            <h5 class="text-center">Likelihood Chart</h5>
+                            <canvas id="likelihoodChart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col-12">
+                        <div class="section chart-container">
+                            <h5 class="text-center">Relevence Chart</h5>
+                            <canvas id="relevanceChart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col-12">
+                        <div class="section chart-container">
+                            <h5 class="text-center">Yearly Chart</h5>
+                            <canvas id="yearlyTrendsChart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col-12">
+                        <div class="section chart-container">
+                            <h5 class="text-center">Country Chart</h5>
+                            <canvas id="countryChart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col-12">
+                        <div class="section chart-container">
+                            <h5 class="text-center">Topics Chart</h5>
+                            <canvas id="topicsChart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col-12">
+                        <div class="section chart-container">
+                            <h5 class="text-center">Region Chart</h5>
+                            <canvas id="regionsChart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col-12">
+                        <div class="section chart-container">
+                            <h5 class="text-center">City Chart</h5>
+                            <canvas id="cityChart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-12">
+                <div class="section applied-filters">
+                    <h5><i class="fas fa-tags"></i> Applied Filters</h5>
+                    <ul id="appliedFiltersList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Chart.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+    <!-- Dashboard JavaScript -->
+    <script src="dashboard.js"></script>
+</body>
+</html>
